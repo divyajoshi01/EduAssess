@@ -10,7 +10,7 @@ import NotFound from './components/NotFound.jsx'
 import ResultHistory from "./pages/student/ResultHistory.jsx";
 
 import TeacherLayout from "./layouts/TeacherLayout.jsx";
-import TeacherDashboard from './pages/teacher/Teacherdashboard.jsx';
+import TeacherDashboard from './pages/teacher/TeacherDashboard.jsx';
 import CreateExam from './pages/teacher/CreateExam.jsx';
 import ManageExam from './pages/teacher/ManageExam.jsx';
 import AddQuestion from './pages/teacher/AddQuestion.jsx';
