@@ -4,8 +4,8 @@ import './index.css'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Home from './pages/Home.jsx'
-import Login from './pages/auth/login.jsx'
-import Register from './pages/auth/register.jsx'
+import Login from './pages/auth/Login.jsx'
+import Register from './pages/auth/Register.jsx'
 import NotFound from './components/NotFound.jsx'
 import ResultHistory from "./pages/student/ResultHistory.jsx";
 
