@@ -8,6 +8,7 @@ import Login from './pages/auth/Login.jsx'
 import Register from './pages/auth/Register.jsx'
 import NotFound from './components/NotFound.jsx'
 import ResultHistory from "./pages/student/ResultHistory.jsx";
+import EduAssessCourse from "./components/EduAssessCourses.jsx";
 
 import TeacherLayout from "./layouts/TeacherLayout.jsx";
 import TeacherDashboard from './pages/teacher/TeacherDashboard.jsx';
@@ -45,6 +46,10 @@ const Router = createBrowserRouter([
       {
         path: "*",
         element: <NotFound />
+      },
+      {
+        path: "/course", 
+        element: <EduAssessCourse />
       }
 
 

@@ -1,14 +1,52 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   FaUserTie,
   FaUserGraduate,
   FaBookOpen,
   FaChartLine,
-  FaClock
+  FaClock,
+  FaHtml5,
+  FaCss3Alt,
+  FaJsSquare,
+  FaReact
 } from "react-icons/fa";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  // Course Data matching your card style
+  const courses = [
+    {
+      id: "html",
+      title: "HTML5 Fundamentals",
+      description: "Learn semantic HTML, elements, web accessibility, and structures.",
+      icon: <FaHtml5 className="mx-auto text-orange-500" size={40} />,
+      path: "/courses/html"
+    },
+    {
+      id: "css",
+      title: "CSS3 & Tailwind",
+      description: "Design beautiful layouts using Flexbox, Grid, and Tailwind CSS.",
+      icon: <FaCss3Alt className="mx-auto text-blue-500" size={40} />,
+      path: "/courses/css"
+    },
+    {
+      id: "javascript",
+      title: "JavaScript ES6+",
+      description: "Master modern JS concepts, Async/Await, DOM, and logic building.",
+      icon: <FaJsSquare className="mx-auto text-yellow-500" size={40} />,
+      path: "/courses/javascript"
+    },
+    {
+      id: "react",
+      title: "React.js Framework",
+      description: "Build interactive web applications using components, state & hooks.",
+      icon: <FaReact className="mx-auto text-cyan-500" size={40} />,
+      path: "/courses/react"
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50">
 
@@ -63,36 +101,34 @@ const Home = () => {
 
       </section>
 
-      {/* Features Section */}
+      {/* Courses Section  */}
       <section className="px-8 md:px-20 py-10">
         <h2 className="text-3xl font-bold text-center text-gray-800">
-          Our Features
+          Available Courses
         </h2>
 
-        <div className="grid md:grid-cols-3 gap-6 mt-10">
-          <div className="bg-white p-6 rounded-xl shadow-md text-center">
-            <FaBookOpen className="mx-auto text-blue-600" size={40} />
-            <h3 className="text-xl font-bold mt-4">Online Exams</h3>
-            <p className="text-gray-600 mt-2">
-              Conduct MCQ based online examinations easily.
-            </p>
-          </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10">
+          {courses.map((course) => (
+            <div 
+              key={course.id}
+              onClick={() => navigate(course.path)}
+              className="bg-white p-6 rounded-xl shadow-md text-center hover:shadow-xl hover:-translate-y-1 transition duration-300 cursor-pointer flex flex-col justify-between"
+            >
+              <div>
+                {course.icon}
+                <h3 className="text-xl font-bold mt-4 text-gray-800">{course.title}</h3>
+                <p className="text-gray-600 mt-2 text-sm leading-relaxed">
+                  {course.description}
+                </p>
+              </div>
 
-          <div className="bg-white p-6 rounded-xl shadow-md text-center">
-            <FaClock className="mx-auto text-blue-600" size={40} />
-            <h3 className="text-xl font-bold mt-4">Timer Based Test</h3>
-            <p className="text-gray-600 mt-2">
-              Students can complete exams within given time.
-            </p>
-          </div>
-
-          <div className="bg-white p-6 rounded-xl shadow-md text-center">
-            <FaChartLine className="mx-auto text-blue-600" size={40} />
-            <h3 className="text-xl font-bold mt-4">Result Analysis</h3>
-            <p className="text-gray-600 mt-2">
-              Track scores and student performance.
-            </p>
-          </div>
+              <div className="mt-6 pt-4 border-t border-gray-100">
+                <span className="text-blue-600 font-semibold text-sm hover:underline">
+                  Start Course →
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
