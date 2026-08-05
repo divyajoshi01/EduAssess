@@ -6,43 +6,42 @@ const protect = require("../middleware/authMiddleware");
 
 
 const {
-
     createTest,
     getTests,
     getSingleTest,
     deleteTest,
-     getStudentTests
-
+    getStudentTests,
+    updateTestQuestions
 }=require("../controllers/testController");
 
 
 // Create Test
 router.post(
-"/",
-protect,
-allowRole("teacher"),
-createTest
+    "/",
+    protect,
+    allowRole("teacher"),
+    createTest
 );
 
 // Get All Tests
 router.get(
-"/",
-protect,
-getTests
+    "/",
+    protect,
+    getTests
 );
 
 
 router.get(
-"/student",
-protect,
-getStudentTests
+    "/student",
+    protect,
+    getStudentTests
 );
 
 // Get Single Test
 router.get(
-"/:id",
-protect,
-getSingleTest
+    "/:id",
+    protect,
+    getSingleTest
 );
 
 
@@ -50,11 +49,19 @@ getSingleTest
 // Delete Test
 
 router.delete(
-"/:id",
-protect,
-deleteTest
+    "/:id",
+    protect,
+    deleteTest
 );
 
+// Update Questions
+
+router.put(
+    "/:id",
+    protect,
+    allowRole("teacher"),
+    updateTestQuestions
+);
 
 
 module.exports = router;

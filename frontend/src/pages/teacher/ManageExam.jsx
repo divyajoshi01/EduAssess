@@ -45,11 +45,12 @@ const ManageExam = () => {
 
   // 3. Open Edit Questions Modal
   const openEditModal = (exam) => {
-    setSelectedExam(exam);
-    // Deep clone questions into local state so user can edit them
-    setEditableQuestions(JSON.parse(JSON.stringify(exam.questions || [])));
-    setIsModalOpen(true);
-  };
+  console.log(JSON.stringify(exam.questions, null, 2));
+
+  setSelectedExam(exam);
+  setEditableQuestions(JSON.parse(JSON.stringify(exam.questions || [])));
+  setIsModalOpen(true);
+};
 
   // 4. Handle Question Text Change
   const handleQuestionChange = (qIndex, value) => {
@@ -72,7 +73,7 @@ const ManageExam = () => {
   // 6. Handle Correct Answer Change
   const handleCorrectAnswerChange = (qIndex, correctOptIndex) => {
     const updated = [...editableQuestions];
-    updated[qIndex].correctAnswer = Number(correctOptIndex);
+    updated[qIndex].correctAnswer = String.fromCharCode(65 + Number(correctOptIndex));
     setEditableQuestions(updated);
   };
 
@@ -94,7 +95,7 @@ const ManageExam = () => {
       fetchExams(); // Refresh exam list
     } catch (error) {
       console.log("Error saving questions:", error);
-      alert("Questions save karne me dikkat aayi!");
+      alert("Failed to save questions. Please try again!");
     } finally {
       setLoading(false);
     }
@@ -250,7 +251,7 @@ const ManageExam = () => {
                 ))
               ) : (
                 <div className="text-center py-8 text-gray-500 bg-gray-50 rounded-xl">
-                  Is exam me koi questions linked nahi hain.
+                No questions found for this exam.
                 </div>
               )}
             </div>
