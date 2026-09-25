@@ -1,122 +1,70 @@
 const Attempt = require("../models/Attempt");
 const Test = require("../models/Test");
 
-
 // Submit Test
 
-const submitTest = async(req,res)=>{
+const submitTest = async (req, res) => {
+  try {
+    const { testId, answers } = req.body;
 
-    try{
+    const test = await Test.findById(testId).populate("questions");
 
-        const {
-            testId,
-            answers
-        } = req.body;
+    let score = 0;
 
+    test.questions.forEach((question) => {
+      const answer = answers.find(
+        (ans) => ans.question === question._id.toString(),
+      );
 
-        const test = await Test.findById(testId)
-        .populate("questions");
+      if (answer && answer.selectedAnswer === question.correctAnswer) {
+        score++;
+      }
+    });
 
+    const attempt = await Attempt.create({
+      student: req.user.id,
 
-        let score = 0;
+      test: testId,
 
+      answers,
 
-        test.questions.forEach((question)=>{
+      score,
+    });
 
-            const answer = answers.find(
-                (ans)=> 
-                ans.question === question._id.toString()
-            );
+    res.status(201).json({
+      message: "Test submitted successfully",
 
+      score,
 
-            if(answer && answer.selectedAnswer === question.correctAnswer){
-
-                score++;
-
-            }
-
-        });
-
-
-
-        const attempt = await Attempt.create({
-
-            student:req.user.id,
-
-            test:testId,
-
-            answers,
-
-            score
-
-        });
-
-
-        res.status(201).json({
-
-            message:"Test submitted successfully",
-
-            score,
-
-            attempt
-
-        });
-
-
-    }catch(error){
-
-        res.status(500).json({
-
-            message:error.message
-
-        });
-
-    }
-
+      attempt,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
-
-
-
-
 
 // Student Result
 
-const getMyResults = async(req,res)=>{
+const getMyResults = async (req, res) => {
+  try {
+    const results = await Attempt.find({
+      student: req.user.id,
+    })
 
-    try{
+      .populate("test", "title subject");
 
-
-        const results = await Attempt.find({
-
-            student:req.user.id
-
-        })
-
-        .populate("test","title subject");
-
-
-        res.json(results);
-
-
-
-    }catch(error){
-
-        res.status(500).json({
-
-            message:error.message
-
-        });
-
-    }
-
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 };
 
+module.exports = {
+  submitTest,
 
-
-module.exports={
-
-    submitTest,
-
-    getMyResults
-
+  getMyResults,
 };

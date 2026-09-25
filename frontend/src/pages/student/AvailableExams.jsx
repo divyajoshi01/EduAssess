@@ -1,99 +1,129 @@
-import React,{useEffect,useState} from "react";
-import {FaClock,FaBook,FaPlay} from "react-icons/fa";
-import {Link} from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { FaClock, FaBook, FaPlay } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import API from "../../api/axios";
 
-const AvailableExams=()=>{
+const AvailableExams = () => {
+  const [exams, setExams] = useState([]);
 
-const [exams,setExams]=useState([]);
+  const fetchExams = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-const fetchExams=async()=>{
-try{
-const token=localStorage.getItem("token");
+      const res = await API.get("/tests/student", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-const res=await API.get("/tests/student",{
-headers:{
-Authorization:`Bearer ${token}`
-}
-});
+      console.log(res.data);
 
-console.log(res.data);
+      setExams(res.data.tests || []);
+    } catch (error) {
+      console.log("Exam Fetch Error:", error);
+    }
+  };
 
-setExams(res.data.tests || []);
+  useEffect(() => {
+    fetchExams();
+  }, []);
 
-}catch(error){
-console.log("Exam Fetch Error:",error);
-}
-};
+  return (
+    <div className="p-6 md:p-8 bg-[#FAF7F2] min-h-screen">
+      {/* ================= HEADER ================= */}
 
-useEffect(()=>{
-fetchExams();
-},[]);
+      <div>
+        <h1
+          className="text-3xl md:text-4xl text-[#0E1726]"
+          style={{
+            fontFamily: "Fraunces, Georgia, serif",
+            fontWeight: 600,
+          }}
+        >
+          Available Exams
+        </h1>
 
-return(
-<div className="p-8 bg-gray-100 min-h-screen">
+        <p className="text-[#0E1726]/60 mt-2">
+          Select an exam and start your test
+        </p>
+      </div>
 
-<h1 className="text-3xl font-bold text-gray-800">
-Available Exams
-</h1>
+      {/* ================= EXAM CARDS ================= */}
 
-<p className="text-gray-500 mt-2">
-Select an exam and start your test
-</p>
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        {exams.length === 0 ? (
+          <div className="col-span-full bg-white border border-[#0E1726]/10 rounded-2xl p-10 text-center shadow-sm">
+            <div className="w-14 h-14 mx-auto rounded-full bg-[#D4A017]/15 text-[#D4A017] flex items-center justify-center text-2xl">
+              <FaBook />
+            </div>
 
-<div className="grid md:grid-cols-3 gap-6 mt-8">
+            <h2
+              className="text-xl text-[#0E1726] mt-4"
+              style={{
+                fontFamily: "Fraunces, Georgia, serif",
+                fontWeight: 600,
+              }}
+            >
+              No Exams Available
+            </h2>
 
-{
-exams.length===0?
-(
-<p className="text-gray-500">
-No Exams Available
-</p>
-)
-:
-(
-exams.map((exam)=>(
-<div
-key={exam._id}
-className="bg-white rounded-xl shadow-md p-6"
->
+            <p className="text-[#0E1726]/55 mt-2">
+              There are currently no exams available for you.
+            </p>
+          </div>
+        ) : (
+          exams.map((exam) => (
+            <div
+              key={exam._id}
+              className="bg-white border border-[#0E1726]/10 rounded-2xl shadow-sm hover:shadow-md transition-all duration-200 p-6 flex flex-col"
+            >
+              {/* Exam Title */}
 
-<h2 className="text-xl font-bold text-gray-800">
-{exam.title}
-</h2>
+              <h2
+                className="text-xl text-[#0E1726] line-clamp-2"
+                style={{
+                  fontFamily: "Fraunces, Georgia, serif",
+                  fontWeight: 600,
+                }}
+              >
+                {exam.title}
+              </h2>
 
-<div className="mt-4 space-y-3 text-gray-600">
+              {/* Exam Details */}
 
-<p className="flex items-center gap-2">
-<FaClock className="text-blue-600"/>
-{exam.duration} Minutes
-</p>
+              <div className="mt-5 space-y-3">
+                <p className="flex items-center gap-3 text-[#0E1726]/65">
+                  <span className="w-9 h-9 rounded-lg bg-[#D4A017]/15 text-[#D4A017] flex items-center justify-center">
+                    <FaClock />
+                  </span>
 
-<p className="flex items-center gap-2">
-<FaBook className="text-blue-600"/>
-{exam.subject}
-</p>
+                  <span>{exam.duration} Minutes</span>
+                </p>
 
-</div>
+                <p className="flex items-center gap-3 text-[#0E1726]/65">
+                  <span className="w-9 h-9 rounded-lg bg-[#D4A017]/15 text-[#D4A017] flex items-center justify-center">
+                    <FaBook />
+                  </span>
 
-<Link
-to={`/student/exam/${exam._id}`}
-className="mt-6 flex items-center justify-center gap-2 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700"
->
-<FaPlay/>
-Start Exam
-</Link>
+                  <span>{exam.subject}</span>
+                </p>
+              </div>
 
-</div>
-))
-)
-}
+              {/* Start Exam */}
 
-</div>
-
-</div>
-);
-
+              <Link
+                to={`/student/exam/${exam._id}`}
+                className="mt-6 flex items-center justify-center gap-2 bg-[#D4A017] text-[#0E1726] font-semibold py-3 rounded-xl hover:bg-[#c29416] transition-all duration-200"
+              >
+                <FaPlay className="text-sm" />
+                Start Exam
+              </Link>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default AvailableExams;

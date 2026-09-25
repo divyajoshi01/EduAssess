@@ -1,122 +1,178 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 const EduAssessCourses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-  // Courses Data
   const courses = [
     {
       id: 1,
+      number: "01",
+      type: "Learn",
       title: "HTML5 Fundamentals",
       category: "Web Development",
       lessons: "25+ Lessons",
-      color: "bg-orange-500",
-      bgLight: "bg-orange-50 border-orange-100",
-      description: "Master semantic markup, forms, elements, and structural accessibility."
+      description:
+        "Master semantic markup, forms, elements, and structural accessibility.",
+      topics: "HTML · Forms · Semantic Tags · Accessibility",
     },
     {
       id: 2,
+      number: "02",
+      type: "Style",
       title: "CSS3 & Tailwind",
       category: "Styling & UI",
       lessons: "40+ Lessons",
-      color: "bg-blue-500",
-      bgLight: "bg-blue-50 border-blue-100",
-      description: "Learn Flexbox, Grid, animations, and utility-first styling with Tailwind CSS."
+      description:
+        "Learn Flexbox, Grid, animations, and utility-first styling with Tailwind CSS.",
+      topics: "CSS · Flexbox · Grid · Tailwind",
     },
     {
       id: 3,
+      number: "03",
+      type: "Build",
       title: "JavaScript ES6+",
       category: "Programming",
       lessons: "60+ Lessons",
-      color: "bg-yellow-500",
-      bgLight: "bg-yellow-50 border-yellow-100",
-      description: "Deep dive into JS concepts: DOM, Async/Await, Promises, and Functions."
+      description:
+        "Deep dive into JavaScript concepts including DOM, Async/Await, Promises, and Functions.",
+      topics: "JavaScript · DOM · Async/Await · ES6+",
     },
     {
       id: 4,
+      number: "04",
+      type: "Create",
       title: "React.js Framework",
-      category: "Frontend Dev",
+      category: "Frontend Development",
       lessons: "50+ Lessons",
-      color: "bg-cyan-500",
-      bgLight: "bg-cyan-50 border-cyan-100",
-      description: "Build reactive UI with Components, State, Hooks, and React Router."
-    }
+      description:
+        "Build interactive applications with Components, State, Hooks, and React Router.",
+      topics: "React · Hooks · Components · Router",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-6 md:p-12">
-      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-        
-        {/* Left Side Section */}
-        <div className="lg:col-span-5 space-y-6">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 leading-tight">
-            Start learning with <br />
-            <span className="text-emerald-600">EduAssess</span>
+    <div
+      className="min-h-screen w-full bg-[#FAF7F2] py-20 px-6 md:px-10"
+      style={{
+        fontFamily: "Fraunces, Georgia, serif",
+      }}
+    >
+      {/* Main Container */}
+      <div className="max-w-6xl mx-auto">
+        {/* Heading */}
+        <div className="text-center mb-16">
+          <div className="inline-block">
+            <span className="text-[12px] uppercase tracking-[0.1em] font-semibold text-[#0E1726] border-b border-[#D4A017] pb-[2px]">
+              Complete Learning Platform
+            </span>
+          </div>
+
+          <h1
+            className="mt-6 font-medium text-[#0E1726] leading-tight tracking-tight"
+            style={{
+              fontSize: "clamp(32px, 4vw, 48px)",
+            }}
+          >
+            Start learning with{" "}
+            <span className="italic text-[#D4A017] font-normal">EduAssess</span>
           </h1>
-          <p className="text-gray-600 text-lg leading-relaxed">
-            Get unlimited access to structured web development courses, practical assessments, and interactive learning sessions.
+
+          <p className="mt-4 text-[#0E1726]/65 text-[15px] md:text-base">
+            Learn, practice and improve your web development skills.
           </p>
-          <button className="bg-emerald-500 hover:bg-emerald-600 text-white font-semibold px-8 py-3.5 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer">
-            Start learning
-          </button>
         </div>
 
-        {/* Right Side Course Cards Grid */}
-        <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {/* Course Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {courses.map((course) => (
             <div
               key={course.id}
               onClick={() => setSelectedCourse(course)}
-              className={`p-6 rounded-2xl border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer flex flex-col justify-between bg-white relative overflow-hidden group`}
+              className="bg-white border border-gray-200 rounded-2xl p-8 cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
-              <div className="space-y-2 relative z-10">
-                <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
-                  {course.category}
+              {/* Top Number */}
+              <div className="flex items-center gap-3 pb-5 border-b border-gray-200">
+                <span className="text-4xl md:text-5xl italic font-normal text-[#D4A017]">
+                  {course.number}
                 </span>
-                <h3 className="text-xl font-bold text-gray-800 group-hover:text-emerald-600 transition-colors">
-                  {course.title}
-                </h3>
+
+                <span className="text-[#0E1726] text-sm italic">
+                  / &nbsp;{course.type}
+                </span>
               </div>
 
-              <div className="mt-8 flex items-center justify-between relative z-10">
-                <span className="text-2xl font-black text-gray-900">
+              {/* Course Content */}
+              <div className="pt-5">
+                <h2 className="text-2xl font-medium text-[#0E1726]">
+                  {course.title}
+                </h2>
+
+                <p className="mt-3 text-[#0E1726]/65 text-[15px] leading-relaxed">
+                  {course.description}
+                </p>
+              </div>
+
+              {/* Bottom */}
+              <div className="mt-7 pt-5 border-t border-gray-200 flex items-center justify-between">
+                <span className="text-[#D4A017] text-sm">
+                  • {course.topics}
+                </span>
+
+                <span className="text-[#0E1726] text-sm font-semibold">
                   {course.lessons}
                 </span>
-                <div className={`w-12 h-12 rounded-xl ${course.color} opacity-80 flex items-center justify-center text-white font-bold text-lg`}>
-                  +
-                </div>
               </div>
-
-              {/* Decorative accent background */}
-              <div className={`absolute -right-4 -bottom-4 w-24 h-24 rounded-full ${course.bgLight} -z-0 opacity-50`} />
             </div>
           ))}
         </div>
-
       </div>
 
-      {/* Course Detail Modal / Page Overlay */}
+      {/* Course Detail Modal */}
       {selectedCourse && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-2xl p-8 max-w-lg w-full space-y-6 shadow-2xl relative animate-in fade-in zoom-in duration-200">
+        <div className="fixed inset-0 bg-[#0E1726]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+          <div
+            className="bg-[#FAF7F2] rounded-2xl p-8 max-w-lg w-full shadow-2xl relative"
+            style={{
+              fontFamily: "Fraunces, Georgia, serif",
+            }}
+          >
+            {/* Close */}
             <button
               onClick={() => setSelectedCourse(null)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl font-bold"
+              className="absolute top-4 right-5 text-[#0E1726]/50 hover:text-[#D4A017] text-xl transition"
             >
               ✕
             </button>
-            <span className="inline-block px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold">
+
+            {/* Category */}
+            <span className="text-[12px] uppercase tracking-[0.1em] font-semibold text-[#0E1726] border-b border-[#D4A017] pb-[2px]">
               {selectedCourse.category}
             </span>
-            <h2 className="text-3xl font-bold text-gray-900">{selectedCourse.title}</h2>
-            <p className="text-gray-600">{selectedCourse.description}</p>
-            <div className="pt-4 flex gap-4">
-              <button className="flex-1 bg-emerald-600 text-white font-medium py-3 rounded-xl hover:bg-emerald-700 transition">
-                Enroll Now
+
+            {/* Title */}
+            <h2 className="text-3xl md:text-4xl font-medium text-[#0E1726] mt-6">
+              {selectedCourse.title}
+            </h2>
+
+            {/* Description */}
+            <p className="text-[#0E1726]/65 mt-4 leading-relaxed">
+              {selectedCourse.description}
+            </p>
+
+            {/* Lessons */}
+            <p className="text-[#D4A017] mt-5 font-semibold">
+              {selectedCourse.lessons}
+            </p>
+
+            {/* Buttons */}
+            <div className="pt-6 flex gap-4">
+              <button className="flex-1 bg-[#D4A017] text-[#0E1726] font-medium py-3 rounded-full hover:bg-[#b8890f] transition">
+                Start Course
               </button>
+
               <button
                 onClick={() => setSelectedCourse(null)}
-                className="px-6 py-3 border border-gray-300 rounded-xl font-medium text-gray-700 hover:bg-gray-50"
+                className="px-6 py-3 border border-[#0E1726] rounded-full font-medium text-[#0E1726] hover:bg-[#0E1726] hover:text-white transition"
               >
                 Close
               </button>

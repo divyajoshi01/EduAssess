@@ -5,112 +5,112 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50 px-6 md:px-8 py-4 border-b border-gray-100">
-
-      <div className="flex justify-between items-center">
-
-        {/* Brand Logo */}
-        <Link 
-          to="/" 
-          className="text-2xl font-extrabold text-blue-600 tracking-wide hover:opacity-90 transition"
-        >
-          Edu<span className="text-gray-800">Assess</span>
-        </Link>
-
-
-        {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-6">
-
-          <Link 
-            to="/" 
-            className="text-gray-600 hover:text-blue-600 font-semibold transition"
-          >
-            Home
-          </Link>
-
-          <Link 
-            to="/about" 
-            className="text-gray-600 hover:text-blue-600 font-semibold transition"
-          >
-            About
-          </Link>
-          <Link 
-            to="/course" 
-            className="text-gray-600 hover:text-blue-600 font-semibold transition"
-          >
-           Course
-          </Link>
-
-
-          <Link 
-            to="/login" 
-            className="border-2 border-blue-600 text-blue-600 hover:bg-blue-50 font-semibold px-5 py-2 rounded-lg shadow-sm hover:shadow-md transition"
-          >
-            Login
-          </Link>
-
-          <Link 
-            to="/register" 
-            className="bg-blue-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-blue-700 shadow-md transition"
-          >
-            Register
-          </Link>
-
-        </div>
-
-
-        {/* Hamburger Button */}
-        <button
-          className="md:hidden text-3xl text-gray-700"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          {menuOpen ? "✕" : "☰"}
-        </button>
-
-      </div>
-
-
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden mt-4 flex flex-col space-y-4 bg-white rounded-lg shadow-md p-5">
-
+    <nav
+      className="bg-[#FAF7F2]/95 backdrop-blur-md shadow-lg sticky top-0 z-50 border-b border-[#D4A017]/20"
+      style={{
+        fontFamily: "Fraunces, Georgia, serif",
+      }}
+    >
+      {/* Centered Navbar Container */}
+      <div className="max-w-7xl mx-auto px-6 md:px-8 py-4">
+        <div className="flex justify-between items-center">
+          {/* Brand Logo */}
           <Link
             to="/"
-            onClick={() => setMenuOpen(false)}
-            className="text-gray-600 hover:text-blue-600 font-semibold"
+            className="text-xl tracking-tight transition-colors"
+            style={{
+              fontWeight: 600,
+              color: "#0E1726",
+            }}
           >
-            Home
+            EduAssess
           </Link>
 
-          <Link
-            to="/about"
-            onClick={() => setMenuOpen(false)}
-            className="text-gray-600 hover:text-blue-600 font-semibold"
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-6">
+            {/* Home */}
+            <Link
+              to="/"
+              className="text-[#0E1726] hover:text-[#D4A017] font-semibold transition"
+            >
+              Home
+            </Link>
+
+            {/* Course */}
+            <Link
+              to="/course"
+              className="text-[#0E1726] hover:text-[#D4A017] font-semibold transition"
+            >
+              Course
+            </Link>
+
+            {/* Login */}
+            <Link
+              to="/login"
+              className="w-[100px] h-[36px] flex items-center justify-center bg-blue-500 text-white font-medium text-base rounded-full shadow-sm hover:bg-blue-600 transition"
+            >
+              Login
+            </Link>
+
+            {/* Register */}
+            <Link
+              to="/register"
+              className="w-[100px] h-[36px] flex items-center justify-center bg-[#D4A017] border-2 border-[#D4A017] text-[#0E1726] font-medium text-base rounded-full shadow-sm hover:bg-[#b8890f] hover:border-[#b8890f] hover:shadow-md transition"
+            >
+              Register
+            </Link>
+          </div>
+
+          {/* Hamburger Button */}
+          <button
+            className="md:hidden text-3xl text-[#0E1726]"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            About
-          </Link>
-
-
-          <Link
-            to="/login"
-            onClick={() => setMenuOpen(false)}
-            className="border-2 border-blue-600 text-blue-600 text-center px-5 py-2 rounded-lg"
-          >
-            Login
-          </Link>
-
-
-          <Link
-            to="/register"
-            onClick={() => setMenuOpen(false)}
-            className="bg-blue-600 text-white text-center px-5 py-2 rounded-lg"
-          >
-            Register
-          </Link>
-
+            {menuOpen ? "✕" : "☰"}
+          </button>
         </div>
-      )}
 
+        {/* Mobile Menu */}
+        {menuOpen && (
+          <div className="md:hidden mt-4 flex flex-col space-y-4 bg-[#FAF7F2] rounded-lg shadow-md p-5 border border-[#D4A017]/20">
+            {/* Home */}
+            <Link
+              to="/"
+              onClick={() => setMenuOpen(false)}
+              className="text-[#0E1726] hover:text-[#D4A017] font-semibold"
+            >
+              Home
+            </Link>
+
+            {/* Course */}
+            <Link
+              to="/course"
+              onClick={() => setMenuOpen(false)}
+              className="text-[#0E1726] hover:text-[#D4A017] font-semibold"
+            >
+              Course
+            </Link>
+
+            {/* Mobile Login */}
+            <Link
+              to="/login"
+              onClick={() => setMenuOpen(false)}
+              className="w-[100px] h-[36px] flex items-center justify-center bg-blue-500 text-white font-medium text-base rounded-full shadow-sm hover:bg-blue-600 transition"
+            >
+              Login
+            </Link>
+
+            {/* Mobile Register */}
+            <Link
+              to="/register"
+              onClick={() => setMenuOpen(false)}
+              className="w-[100px] h-[36px] flex items-center justify-center bg-[#D4A017] border-2 border-[#D4A017] text-[#0E1726] font-medium text-base rounded-full shadow-sm hover:bg-[#b8890f] hover:border-[#b8890f] hover:shadow-md transition"
+            >
+              Register
+            </Link>
+          </div>
+        )}
+      </div>
     </nav>
   );
 };

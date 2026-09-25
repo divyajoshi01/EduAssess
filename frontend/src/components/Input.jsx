@@ -10,9 +10,7 @@ const Input = ({
 }) => {
   return (
     <div className="mb-4">
-      <label className="block mb-2 text-gray-700 font-medium">
-        {label}
-      </label>
+      <label className="block mb-2 text-gray-700 font-medium">{label}</label>
 
       <input
         type={type}

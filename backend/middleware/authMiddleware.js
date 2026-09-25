@@ -1,22 +1,21 @@
 const jwt = require("jsonwebtoken");
 
-const protect = (req,res,next)=>{
+const protect = (req, res, next) => {
+  let token = req.headers.authorization;
 
-    let token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({
+      message: "No token found",
+    });
+  }
 
-    if(!token){
-        return res.status(401).json({
-            message:"No token found"
-        });
-    }
+  token = token.split(" ")[1];
 
-    token = token.split(" ")[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  req.user = decoded;
 
-    req.user = decoded;
-
-    next();
-}
+  next();
+};
 
 module.exports = protect;

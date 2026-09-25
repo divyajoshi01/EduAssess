@@ -28,7 +28,7 @@ const ManageExam = () => {
 
   // 2. Delete Exam
   const deleteExam = async (id) => {
-    if (!window.confirm("Kya aap sach me is exam ko delete karna chahte hain?")) return;
+    if (!window.confirm("Do you really want to delete this exam?")) return;
 
     try {
       const token = localStorage.getItem("token");

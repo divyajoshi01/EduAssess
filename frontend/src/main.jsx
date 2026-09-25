@@ -1,20 +1,20 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import Home from './pages/Home.jsx'
-import Login from './pages/auth/Login.jsx'
-import Register from './pages/auth/Register.jsx'
-import NotFound from './components/NotFound.jsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Home from "./pages/Home.jsx";
+import Login from "./pages/auth/Login.jsx";
+import Register from "./pages/auth/Register.jsx";
+import NotFound from "./components/NotFound.jsx";
 import ResultHistory from "./pages/student/ResultHistory.jsx";
 import EduAssessCourse from "./components/EduAssessCourses.jsx";
 
 import TeacherLayout from "./layouts/TeacherLayout.jsx";
-import TeacherDashboard from './pages/teacher/TeacherDashboard.jsx';
-import CreateExam from './pages/teacher/CreateExam.jsx';
-import ManageExam from './pages/teacher/ManageExam.jsx';
-import AddQuestion from './pages/teacher/AddQuestion.jsx';
+import TeacherDashboard from "./pages/teacher/TeacherDashboard.jsx";
+import CreateExam from "./pages/teacher/CreateExam.jsx";
+import ManageExam from "./pages/teacher/ManageExam.jsx";
+import AddQuestion from "./pages/teacher/AddQuestion.jsx";
 import ManageQuestions from "./pages/teacher/ManageQuestions.jsx";
 
 import StudentLayout from "./layouts/StudentLayout.jsx";
@@ -24,105 +24,100 @@ import ExamPage from "./pages/student/ExamPage.jsx";
 import Result from "./pages/student/Result.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
-
-
 const Router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
       {
-        path: '/',
-        element: <Home />
+        path: "/",
+        element: <Home />,
       },
       {
         path: "/login",
-        element: <Login />
+        element: <Login />,
       },
       {
         path: "/register",
-        element: <Register />
+        element: <Register />,
       },
       {
         path: "*",
-        element: <NotFound />
+        element: <NotFound />,
       },
       {
-        path: "/course", 
-        element: <EduAssessCourse />
-      }
-
-
-    ]
+        path: "/course",
+        element: <EduAssessCourse />,
+      },
+    ],
   },
   // Teacher Routes
   {
     path: "/teacher",
-    element:
+    element: (
       <ProtectedRoute role="teacher">
         <TeacherLayout />
-      </ProtectedRoute>,
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "dashboard",
-        element: <TeacherDashboard />
+        element: <TeacherDashboard />,
       },
       {
         path: "create-exam",
-        element: <CreateExam />
+        element: <CreateExam />,
       },
       {
         path: "manage-exam",
-        element: <ManageExam />
+        element: <ManageExam />,
       },
       {
         path: "add-question",
-        element: <AddQuestion />
+        element: <AddQuestion />,
       },
       {
         path: "manage-questions",
-        element: <ManageQuestions />
-      }
-    ]
+        element: <ManageQuestions />,
+      },
+    ],
   },
 
   //student routes
   {
     path: "/student",
-    element:
+    element: (
       <ProtectedRoute role="student">
         <StudentLayout />
-      </ProtectedRoute>,
+      </ProtectedRoute>
+    ),
     children: [
       {
         path: "dashboard",
-        element: <StudentDashboard />
+        element: <StudentDashboard />,
       },
       {
         path: "exams",
-        element: <AvailableExams />
+        element: <AvailableExams />,
       },
       {
         path: "exam/:examId",
-        element: <ExamPage />
+        element: <ExamPage />,
       },
       {
         path: "result",
-        element: <Result />
+        element: <Result />,
       },
       {
         path: "result-history",
-        element: <ResultHistory />
-      }
-    ]
-  }
+        element: <ResultHistory />,
+      },
+    ],
+  },
+]);
 
-
-])
-
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={Router} />
   </StrictMode>,
-)
+);

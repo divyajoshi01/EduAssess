@@ -5,120 +5,117 @@ import { Link, useNavigate } from "react-router-dom";
 import API from "../../api/axios";
 
 const Register = () => {
+  const navigate = useNavigate();
 
-const navigate = useNavigate();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("student");
 
-const [name,setName]=useState("");
-const [email,setEmail]=useState("");
-const [password,setPassword]=useState("");
-const [role,setRole]=useState("student");
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-const handleSubmit = async(e)=>{
+    try {
+      console.log("API BASE URL:", API.defaults.baseURL);
+      console.log("REGISTER URL:", `${API.defaults.baseURL}/auth/register`);
 
- e.preventDefault();
- try{
-  const res = await API.post("/auth/register",{
+      const res = await API.post("/auth/register", {
+        name,
+        email,
+        password,
+        role,
+      });
 
-    name,
-    email,
-    password,
-    role
+      console.log(res.data);
 
-  });
+      alert("Registration Successful");
 
+      navigate("/login");
+    } catch (error) {
+      console.log("FULL ERROR:", error);
 
-  console.log(res.data);
+      if (error.response) {
+        console.log("SERVER ERROR:", error.response.data);
+      }
 
-  alert("Registration Successful");
+      alert("Check console");
+    }
+  };
 
-  navigate("/login");
+  return (
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#FAF7F2] px-4 py-10">
+      {/* Register Card */}
+      <div className="bg-white max-w-md w-full p-8 rounded-2xl border border-gray-200 shadow-lg">
+        {/* Heading */}
+        <h1
+          className="text-4xl text-center text-[#0E1726] font-medium"
+          style={{
+            fontFamily: "Fraunces, Georgia, serif",
+          }}
+        >
+          Create your <span className="italic text-[#D4A017]">account</span>
+        </h1>
 
- }catch(error){
+        <p className="text-center text-[#0E1726]/60 mt-3 text-sm">
+          Join EduAssess and start learning today.
+        </p>
 
-  console.log("FULL ERROR:", error);
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="mt-7">
+          <Input
+            label="Name"
+            placeholder="Enter name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
 
-  if(error.response){
-    console.log("SERVER ERROR:", error.response.data);
-  }
+          <Input
+            label="Email"
+            type="email"
+            placeholder="Enter email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-  alert("Check console");
+          <Input
+            label="Password"
+            type="password"
+            placeholder="Enter password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
 
-}
+          {/* Role */}
+          <label className="block text-sm font-semibold text-[#0E1726] mb-2">
+            Select Role
+          </label>
 
+          <select
+            className="w-full border border-gray-300 rounded-lg px-4 py-2.5 mb-5 bg-white text-[#0E1726] focus:outline-none focus:ring-2 focus:ring-[#D4A017] focus:border-[#D4A017]"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+          </select>
+
+          {/* Register Button */}
+          <Button text="Register" type="submit" />
+        </form>
+
+        {/* Login */}
+        <p className="text-center mt-6 text-sm text-[#0E1726]/70">
+          Already have an account?
+          <Link
+            to="/login"
+            className="text-[#D4A017] font-semibold ml-2 hover:text-[#b8890f] transition"
+          >
+            Login
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
 };
-
-return (
-
-<div className="min-h-screen flex items-center justify-center bg-gray-100">
-<div className="bg-white max-w-md w-full p-8 rounded-xl shadow-lg">
-
-<h1 className="text-3xl font-bold text-center text-blue-600">
-Register
-</h1>
-
-<form onSubmit={handleSubmit} className="mt-6">
-
-<Input
-label="Name"
-placeholder="Enter name"
-value={name}
-onChange={(e)=>setName(e.target.value)}
-/>
-
-<Input
-label="Email"
-type="email"
-placeholder="Enter email"
-value={email}
-onChange={(e)=>setEmail(e.target.value)}
-/>
-
-<Input
-label="Password"
-type="password"
-placeholder="Enter password"
-value={password}
-onChange={(e)=>setPassword(e.target.value)}
-/>
-
-<select
-className="w-full border rounded-lg px-4 py-2 mb-4"
-value={role}
-onChange={(e)=>setRole(e.target.value)}
->
-
-<option value="student">
-Student
-</option>
-
-<option value="teacher">
-Teacher
-</option>
-
-</select>
-
-<Button
-  text="Register"
-  type="submit"
-/>
-
-</form>
-
-<p className="text-center mt-5">
-
-Already have account?
-
-<Link 
-to="/login"
-className="text-blue-600 ml-2"
->
-Login
-</Link>
-</p>
-
-</div>
-</div>
-)
-}
 
 export default Register;

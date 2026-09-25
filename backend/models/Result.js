@@ -1,31 +1,32 @@
-const mongoose=require("mongoose");
+const mongoose = require("mongoose");
 
-const resultSchema=new mongoose.Schema({
+const resultSchema = new mongoose.Schema(
+  {
+    student: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
 
-student:{
-type:mongoose.Schema.Types.ObjectId,
-ref:"User",
-required:true
-},
+    test: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Test",
+      required: true,
+    },
 
-test:{
-type:mongoose.Schema.Types.ObjectId,
-ref:"Test",
-required:true
-},
+    score: {
+      type: Number,
+      required: true,
+    },
 
-score:{
-type:Number,
-required:true
-},
+    totalQuestions: {
+      type: Number,
+      required: true,
+    },
+  },
+  {
+    timestamps: true,
+  },
+);
 
-totalQuestions:{
-type:Number,
-required:true
-}
-
-},{
-timestamps:true
-});
-
-module.exports=mongoose.model("Result",resultSchema);
+module.exports = mongoose.model("Result", resultSchema);
